@@ -13,11 +13,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect } from "react"
-import Image from "next/image"
 import axios from "axios"
 import { toast } from "sonner"
 import { Oval  } from 'react-loader-spinner'
-
 
 const formSchema = z.object({
   firstName: z.string(),
@@ -32,15 +30,15 @@ const formSchema = z.object({
   course: z.string({ message: "Enter student course" })
 })
 
-export function AttendeeForm() {
+export function EditForm({attendee}) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phonenumber: "",
-      course: "",
+      firstName: attendee.firstName,
+      lastName: attendee.lastName,
+      email: attendee.email,
+      phonenumber: attendee.phonenumber,
+      course: attendee.course,
     },
   })
   
@@ -49,8 +47,8 @@ export function AttendeeForm() {
  
   const onSubmit = async (values) => {
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/attendee`, values)
-      toast(`${res.data.newAttendee.firstName} ${res.data.newAttendee.lastName} registered successfully`)
+      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/attendee/${attendee._id}`, values)
+      toast('Details updated successfully')
     } catch (error) {
       toast("Registration failed")
     }
@@ -64,11 +62,6 @@ export function AttendeeForm() {
 
   return (
     <Form {...form}>
-      <div className="flex flex-col m-auto w-full items-center justify-center">
-        <div className="flex flex-col items-center space-y-3 mt-10 mb-10 tablet:mb-16">
-          <Image src="/ibadanTExpo.png" className="w-auto h-auto" alt="ibadan tech expo logo" width={100} height={100}/>
-          <h1 className="font-semibold text-xl tablet:text-2xl laptop:3xl">Register Attendee</h1>          
-        </div>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 gap-x-8 gap-y-6 tablet:grid-cols-2 w-full px-5">
         <FormField
           control={form.control}
@@ -142,14 +135,13 @@ export function AttendeeForm() {
             </FormItem>
           )}
         />
-        <Button className="bg-yellow-500 hover:bg-yellow-400 text-white rounded-lg tablet:col-span-2" type="submit" disabled={!isDirty || !isValid} >
-          {isSubmitting 
-            ? <div className="flex gap-3 items-center justify-center"><Oval visible={true} height="18" width="18" color="white" ariaLabel="oval-loading" /> <p>Registering...</p></div>
-            : <div>Register</div>
-          }
+        <Button className="tablet:col-span-2" type="submit" disabled={!isDirty || !isValid} >
+            {isSubmitting 
+            ? <div className="flex gap-3 items-center justify-center"><Oval visible={true} height="18" width="18" color="white" ariaLabel="oval-loading" /> <p>Saving...</p></div>
+            : <div>Save changes</div>
+            }
         </Button>
       </form>
-      </div>
     </Form>
   )
 }

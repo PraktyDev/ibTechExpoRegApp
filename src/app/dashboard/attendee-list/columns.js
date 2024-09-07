@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import DeleteAlert from "@/components/DeleteAlert";
+import EditAttendee from "@/components/EditAttendee";
 
 
 export const columns = [
@@ -18,7 +19,7 @@ export const columns = [
     accessorKey: "firstName",
     header: ({ column }) => {
       return (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 items-center">
         <p>First Name</p>
         <Button
           className=''
@@ -51,6 +52,7 @@ export const columns = [
     id: "actions",
     cell: ({ row }) => {
       const attendee = row.original;
+    
 
       return (
         <DropdownMenu>
@@ -67,8 +69,8 @@ export const columns = [
               Copy Email
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit Attendee</DropdownMenuItem>
-            <DropdownMenuItem><DeleteAlert /></DropdownMenuItem>
+            <EditAttendee attendee={attendee}/>
+            <DeleteAlert attendee={attendee} />
           </DropdownMenuContent>
         </DropdownMenu>
       );

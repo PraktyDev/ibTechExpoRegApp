@@ -1,4 +1,5 @@
 "use client"
+import BottomNav from "@/components/BottomNav";
 import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
@@ -32,9 +33,10 @@ export default function DashboardLayout({ children }) {
   }
 
   return (
-    <main className="flex bg-[#E6E6E6] min-h-screen h-full">
-      <Sidebar />
-      <div className="ml-[51px] w-full flex flex-col">
+    <main className="relative flex bg-[#E6E6E6] min-h-screen h-full">
+      <div className='hidden laptop:block'><Sidebar /></div>
+      <div className='absolute bottom-4 left-4 laptop:hidden'><BottomNav /></div>
+      <div className="laptop:ml-[51px] w-full flex flex-col">
         <Navbar user={userData} />
         {children}
       </div>
