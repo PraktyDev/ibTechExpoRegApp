@@ -47,7 +47,8 @@ export function LoginForm() {
       toast("Login success")
       router.push('/dashboard')
     } catch (error) {
-      toast('Login failed, try again');
+      const err = error.response.data.msg
+      toast(err)
     }
   }
 

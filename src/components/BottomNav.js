@@ -15,7 +15,7 @@ const BottomNav = () => {
 
   return (
     <div
-        className={`flex bg-slate-500 rounded-sm items-center justify-between transition-all duration-500 ${
+        className={`flex z-50 bg-slate-500 rounded-sm items-center justify-between transition-all duration-500 ${
         isOpen ? "w-[300px] px-1 py-1" : "w-[35px]"
         }`}
     >
