@@ -18,7 +18,6 @@ async function getData() {
 
 export default async function AttendeeListPage() {
   const data = await getData();
-  console.log(data);
 
   return (
     <div className="w-full px-2 laptop:px-0 laptop:container mx-auto py-10 flex flex-col">
