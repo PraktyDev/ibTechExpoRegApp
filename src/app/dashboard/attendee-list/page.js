@@ -1,16 +1,15 @@
 import CsvDownload from "@/components/CsvDownload";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import axios from "axios";
 
-
+const dynamic = 'force-dynamic'
 async function getData() {
   try {
-    const res = await axios.get(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/attendees`,
-      { cache: "no-store" }
+      { next: { revalidate: 0 } }
     );
-    return res.data;
+    return res.json();
   } catch (error) {
     console.log(error.message);
     return null;
@@ -19,6 +18,7 @@ async function getData() {
 
 export default async function AttendeeListPage() {
   const data = await getData();
+  console.log(data);
 
   return (
     <div className="w-full px-2 laptop:px-0 laptop:container mx-auto py-10 flex flex-col">
