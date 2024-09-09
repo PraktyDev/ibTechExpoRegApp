@@ -22,7 +22,7 @@ const Navbar = ({user}) => {
             </div>
             <HoverCard>
                 <HoverCardTrigger>
-                    <div className="cursor-default flex items-center justify-center rounded-full w-8 h-8 p-1 bg-slate-200 font-bold text-xl">{initial}{last}</div>
+                    <div className="cursor-default flex items-center justify-center rounded-full w-12 h-12 p-1 bg-slate-200 font-semibold text-xl">{initial}{last}</div>
                 </HoverCardTrigger>
                 <HoverCardContent>
                     <div className="flex flex-col justify-center items-center gap-4">
